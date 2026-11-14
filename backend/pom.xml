@@ -41,7 +41,6 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-<<<<<<< HEAD
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
         </dependency>
         <dependency>
@@ -50,8 +49,6 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-=======
->>>>>>> 305c0828f38f53a92cff4c0cfa28da88ad24eb98
             <artifactId>quarkus-junit</artifactId>
             <scope>test</scope>
         </dependency>
