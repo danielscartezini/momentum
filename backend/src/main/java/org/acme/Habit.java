@@ -40,4 +40,12 @@ public class Habit {
         this.habitDescription = habitDescription;
     }
 
+    public String getId() {
+        return String.valueOf(id);
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }

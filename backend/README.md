@@ -4,6 +4,8 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
 
+The project targets Java 25 (LTS); use JDK 25 to build and run it.
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
