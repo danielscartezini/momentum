@@ -1,45 +1,49 @@
 package org.acme;
 
+import java.util.List;
+
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import java.util.List;
 
-@Path("/api/habits")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Path("/api/habits")    // Define a url de comunicacao com a API 
+@Produces(MediaType.APPLICATION_JSON)   // O endpoint converte a resposta para JSON
+@Consumes(MediaType.APPLICATION_JSON)   // O endpoint vai receber requisicoes em JSON
 public class HabitResource {
+    
+    @Inject // conexao com o banco de dados
+    EntityManager em;
 
-    @Inject
-    EntityManager em; // Gerenciador do banco de dados do JPA
-
-    // 1. Listar todos os hábitos (GET /api/habits)
-    @GET
-    public List<Habit> listAll() {
+// Requisições HTTP para gerenciar hábitos
+    // Endpoint para query dos hábitos
+    @GET 
+    public List<Habit> getHabit() {
         return em.createQuery("SELECT h FROM Habit h", Habit.class).getResultList();
     }
-
-    // 2. Criar um novo hábito (POST /api/habits)
+    
+    // Endpoint para adicionar um novo hábito
     @POST
-    @Transactional // Obrigatório sempre que formos alterar o banco (insert, update, delete)
-    public Response create(Habit newHabit) {
-        em.persist(newHabit);
-        return Response.status(Response.Status.CREATED).entity(newHabit).build();
+    @Transactional  // Os endpoints que modificam o banco de dados (POST, DELETE) precisam ser transacionais
+    public void addHabit(Habit habit) {
+        em.persist(habit);  // Habit habit =  o habito que vem do frontend em um JSON, que é convertido para um objeto Habit automaticamente pelo Quarkus
     }
 
-    // 3. Apagar um hábito pelo ID (DELETE /api/habits/{id})
-    @DELETE
-    @Path("/{id}")
-    @Transactional
-    public Response delete(@PathParam("id") Long id) {
+    // Endpoint para deletar um hábito pelo ID
+    @DELETE 
+    @Transactional  // Os endpoints que modificam o banco de dados (POST, DELETE) precisam ser transacionais
+    @Path("/{id}") // Onde o ID vai ser passado na URL
+    public void deleteHabit(@PathParam("id") Long id) { // a variavel id vai receber o valor do ID passado na URL
         Habit habit = em.find(Habit.class, id);
-        if (habit == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        if (habit != null) {
+            em.remove(habit);
         }
-        em.remove(habit);
-        return Response.noContent().build();
     }
 }
