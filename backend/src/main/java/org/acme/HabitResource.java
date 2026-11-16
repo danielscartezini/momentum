@@ -33,7 +33,7 @@ public class HabitResource {
     @POST
     @Transactional  // Os endpoints que modificam o banco de dados (POST, DELETE) precisam ser transacionais
     public void addHabit(Habit habit) {
-        em.persist(habit);  // Habit habit =  o habito que vem do frontend em um JSON, que é convertido para um objeto Habit automaticamente pelo Quarkus
+        em.persist(habit);  // Habit habit =  o habito que vem do frontend em um JSON, que é convertido para um objeto Habit pelo @Consumes(MediaType.APPLICATION_JSON)
     }
 
     // Endpoint para deletar um hábito pelo ID

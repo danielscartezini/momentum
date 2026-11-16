@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Body } from './body';
+import { HabitCrudModal } from './habit-crud-modal';
 
-describe('Body', () => {
-  let component: Body;
-  let fixture: ComponentFixture<Body>;
+describe('HabitCrudModal', () => {
+  let component: HabitCrudModal;
+  let fixture: ComponentFixture<HabitCrudModal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Body],
+      imports: [HabitCrudModal],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Body);
+    fixture = TestBed.createComponent(HabitCrudModal);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
